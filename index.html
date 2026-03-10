@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,32 +12,34 @@
 
 html{
 scroll-behavior:smooth;
-font-family:Arial, Helvetica, sans-serif;
+font-family: 'Segoe UI', sans-serif;
 }
 
 body{
 margin:0;
-background:#f6f8fb;
+background:#f3f4f6;
+color:#111827;
 }
 
 nav{
 background:#111827;
 color:white;
-padding:15px 40px;
+padding:18px 60px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 position:sticky;
 top:0;
+z-index:1000;
 }
 
 .profile_name{
 font-size:22px;
-font-weight:bold;
+font-weight:600;
 }
 
 .topmenu{
-margin-left:20px;
+margin-left:25px;
 text-decoration:none;
 color:white;
 font-size:16px;
@@ -46,38 +49,53 @@ font-size:16px;
 color:#60a5fa;
 }
 
-.container{
+.hero{
 display:flex;
 align-items:center;
-padding:60px;
-gap:40px;
+gap:60px;
+padding:80px 100px;
 }
 
 .profile_image{
-width:250px;
+width:260px;
 }
 
-h1{
-font-size:36px;
+.hero h1{
+font-size:38px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:17px;
+line-height:1.6;
 }
 
 section{
-padding:60px;
+padding:70px 100px;
 }
 
-.all_skills{
+h2{
+margin-bottom:30px;
+font-size:28px;
+}
+
+.skills-grid{
 display:flex;
 flex-wrap:wrap;
 gap:20px;
 }
 
-.skill{
+.skill-card{
 background:white;
 padding:20px;
 border-radius:10px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+width:160px;
 text-align:center;
-width:150px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.skill-card h4{
+margin-bottom:5px;
 }
 
 .projects-container{
@@ -86,32 +104,66 @@ max-width:900px;
 
 .project-card{
 background:white;
-padding:25px;
+padding:30px;
 border-radius:10px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.project-card ul{
+line-height:1.6;
 }
 
 button{
 background:#2563eb;
 border:none;
 color:white;
-padding:10px 20px;
+padding:12px 22px;
 border-radius:6px;
 cursor:pointer;
+margin-top:15px;
 }
 
 button:hover{
-background:#1d4ed8;
+background:#1e40af;
+}
+
+.links a{
+display:inline-block;
+margin-right:20px;
+text-decoration:none;
+color:#2563eb;
+font-weight:500;
+}
+
+.recommendation{
+background:white;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+box-shadow:0 3px 8px rgba(0,0,0,0.08);
+}
+
+.contact{
+background:#111827;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+.contact a{
+color:#93c5fd;
+text-decoration:none;
 }
 
 .footer{
 text-align:center;
-padding:30px;
-background:#111827;
-color:white;
+padding:15px;
+background:#020617;
+color:#cbd5f5;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -129,6 +181,7 @@ Krishanu Das
 <a class="topmenu" href="#about">About</a>
 <a class="topmenu" href="#skills">Skills</a>
 <a class="topmenu" href="#projects">Projects</a>
+<a class="topmenu" href="#recommendations">Recommendations</a>
 <a class="topmenu" href="http://3.107.198.42:3000/" target="_blank">MachFinance Demo</a>
 
 </div>
@@ -137,30 +190,33 @@ Krishanu Das
 
 <!-- About -->
 
-<section id="about" class="container">
+<section id="about" class="hero">
 
 <img src="developer (1).png" class="profile_image">
 
 <div>
 
-<h1>Hi, I'm Krishanu Das</h1>
+<h1>Hi, I'm Krishanu Das 👋</h1>
 
 <p>
 
-I am a B.Tech Computer Science student at the Institute of Engineering & Management (IEM), Kolkata with a CGPA of <b>9.67</b>.  
+I am a B.Tech Computer Science student at the <b>Institute of Engineering & Management, Kolkata</b> with a CGPA of <b>9.67</b>.  
 
-I am passionate about building scalable software systems and full-stack applications. My primary development stack includes <b>ReactJS</b> for frontend development and <b>FastAPI with Python</b> for backend services.  
+I am passionate about building scalable software systems and full-stack web applications. My primary development stack includes <b>ReactJS</b> for frontend and <b>FastAPI with Python</b> for backend development.
 
-I enjoy working with data-driven applications, APIs, and cloud deployments. My interests include financial technology, market analytics, backend system design, and building products that solve real-world problems.
-
-</p>
-
-<p>
-
-📧 dkrishanu94@gmail.com  
-📱 +91-9002752448
+I enjoy developing data-driven applications, financial analytics platforms, and cloud-based systems. I am particularly interested in fintech, backend architecture, and building products that solve real-world problems.
 
 </p>
+
+<br>
+
+<div class="links">
+
+<a href="https://github.com/Krishanu2006" target="_blank">GitHub</a>
+
+<a href="https://www.linkedin.com/in/krishanu-das-3a2a34329/" target="_blank">LinkedIn</a>
+
+</div>
 
 </div>
 
@@ -172,44 +228,44 @@ I enjoy working with data-driven applications, APIs, and cloud deployments. My i
 
 <h2>Skills</h2>
 
-<div class="all_skills">
+<div class="skills-grid">
 
-<div class="skill">
+<div class="skill-card">
 <h4>Python</h4>
 <p>Backend Development</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>React JS</h4>
 <p>Frontend Development</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>FastAPI</h4>
 <p>API Development</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>JavaScript</h4>
 <p>Web Development</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>SQL</h4>
-<p>Database Management</p>
+<p>Database</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>AWS</h4>
 <p>Cloud Deployment</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>Java</h4>
 <p>Programming</p>
 </div>
 
-<div class="skill">
+<div class="skill-card">
 <h4>C</h4>
 <p>Programming</p>
 </div>
@@ -232,40 +288,26 @@ I enjoy working with data-driven applications, APIs, and cloud deployments. My i
 
 <ul>
 
-<li>
-Developed a full-stack web platform for analyzing NIFTY 50 market data at minute- and second-level granularity.
-</li>
+<li>Developed a full-stack financial analytics platform for analyzing NIFTY 50 market data.</li>
 
-<li>
-Built the frontend using <b>ReactJS</b> to create interactive dashboards for financial data visualization.
-</li>
+<li>Built interactive dashboards using <b>ReactJS</b> to visualize financial trends and indicators.</li>
 
-<li>
-Implemented a high-performance backend using <b>FastAPI</b> to process time-series market data efficiently.
-</li>
+<li>Implemented backend services using <b>FastAPI</b> to process minute- and second-level time-series market data.</li>
 
-<li>
-Integrated technical indicators including <b>SMA, EMA, Bollinger Bands, MACD, and RSI</b> for quantitative analysis.
-</li>
+<li>Integrated technical indicators including <b>SMA, EMA, Bollinger Bands, MACD, and RSI</b>.</li>
 
-<li>
-Applied the <b>Black-Scholes model</b> to evaluate options pricing and trading payoff structures.
-</li>
+<li>Applied the <b>Black-Scholes model</b> to analyze options pricing and payoff structures.</li>
 
-<li>
-Designed RESTful APIs and optimized database queries for large financial datasets.
-</li>
+<li>Designed REST APIs and optimized database queries for financial datasets.</li>
 
-<li>
-Deployed the platform on <b>AWS</b> to provide scalable cloud hosting and public access.
-</li>
+<li>Deployed the platform on <b>AWS</b> for scalable public access.</li>
 
 </ul>
 
-<br>
-
 <a href="http://3.107.198.42:3000/" target="_blank">
+
 <button>View Live Demo</button>
+
 </a>
 
 </div>
@@ -280,21 +322,17 @@ Deployed the platform on <b>AWS</b> to provide scalable cloud hosting and public
 
 <h2>Recommendations</h2>
 
-<div class="project-card">
+<div class="recommendation">
 
-<p>
+Krishanu is a quick learner who understands complex technical concepts rapidly.  
+He demonstrates strong initiative and consistently contributes valuable ideas to projects.
 
-“Krishanu is a quick learner who understands complex technical concepts rapidly.  
-He demonstrates strong initiative and consistently contributes valuable ideas to projects.”
+</div>
 
-</p>
+<div class="recommendation">
 
-<p>
-
-“Working with Krishanu has been a great experience.  
-He is highly knowledgeable, detail-oriented, and committed to delivering quality work.”
-
-</p>
+Working with Krishanu has been a great experience.  
+He is highly knowledgeable, detail-oriented, and committed to delivering quality work.
 
 </div>
 
@@ -302,7 +340,7 @@ He is highly knowledgeable, detail-oriented, and committed to delivering quality
 
 <!-- Contact -->
 
-<section id="contact">
+<div class="contact">
 
 <h2>Contact</h2>
 
@@ -311,19 +349,19 @@ He is highly knowledgeable, detail-oriented, and committed to delivering quality
 
 <p>
 
-LinkedIn:  
-<a href="https://linkedin.com" target="_blank">Profile</a>
+GitHub:  
+<a href="https://github.com/Krishanu2006" target="_blank">github.com/Krishanu2006</a>
 
 </p>
 
 <p>
 
-GitHub:  
-<a href="https://github.com" target="_blank">Repository</a>
+LinkedIn:  
+<a href="https://www.linkedin.com/in/krishanu-das-3a2a34329/" target="_blank">View Profile</a>
 
 </p>
 
-</section>
+</div>
 
 <div class="footer">
 
