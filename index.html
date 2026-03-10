@@ -1,374 +1,902 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishanu Das | Software Engineer & Full Stack Developer</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<title>Krishanu Das | Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 
-<style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-html{
-scroll-behavior:smooth;
-font-family: 'Segoe UI', sans-serif;
-}
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-body{
-margin:0;
-background:#f3f4f6;
-color:#111827;
-}
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#ec4899',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-nav{
-background:#111827;
-color:white;
-padding:18px 60px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:1000;
-}
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-.profile_name{
-font-size:22px;
-font-weight:600;
-}
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
 
-.topmenu{
-margin-left:25px;
-text-decoration:none;
-color:white;
-font-size:16px;
-}
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6366f1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
 
-.topmenu:hover{
-color:#60a5fa;
-}
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-.hero{
-display:flex;
-align-items:center;
-gap:60px;
-padding:80px 100px;
-}
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
 
-.profile_image{
-width:260px;
-}
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px);
+        }
 
-.hero h1{
-font-size:38px;
-margin-bottom:10px;
-}
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(to right, #818cf8, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.hero p{
-font-size:17px;
-line-height:1.6;
-}
+        /* Cursor Effect */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
 
-section{
-padding:70px 100px;
-}
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #020617;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-text {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2rem;
+            color: #6366f1;
+            animation: pulse 1.5s infinite;
+        }
 
-h2{
-margin-bottom:30px;
-font-size:28px;
-}
+        /* Achievement Card */
+        .achievement-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-left: 3px solid #6366f1;
+        }
 
-.skills-grid{
-display:flex;
-flex-wrap:wrap;
-gap:20px;
-}
-
-.skill-card{
-background:white;
-padding:20px;
-border-radius:10px;
-width:160px;
-text-align:center;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
-}
-
-.skill-card h4{
-margin-bottom:5px;
-}
-
-.projects-container{
-max-width:900px;
-}
-
-.project-card{
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-.project-card ul{
-line-height:1.6;
-}
-
-button{
-background:#2563eb;
-border:none;
-color:white;
-padding:12px 22px;
-border-radius:6px;
-cursor:pointer;
-margin-top:15px;
-}
-
-button:hover{
-background:#1e40af;
-}
-
-.links a{
-display:inline-block;
-margin-right:20px;
-text-decoration:none;
-color:#2563eb;
-font-weight:500;
-}
-
-.recommendation{
-background:white;
-padding:20px;
-border-radius:10px;
-margin-bottom:20px;
-box-shadow:0 3px 8px rgba(0,0,0,0.08);
-}
-
-.contact{
-background:#111827;
-color:white;
-text-align:center;
-padding:40px;
-}
-
-.contact a{
-color:#93c5fd;
-text-decoration:none;
-}
-
-.footer{
-text-align:center;
-padding:15px;
-background:#020617;
-color:#cbd5f5;
-}
-
-</style>
-
+        /* Section offset for fixed navbar */
+        section {
+            scroll-margin-top: 80px;
+        }
+    </style>
+<base target="_blank">
+<base target="_blank">
 </head>
+<body class="antialiased selection:bg-indigo-500 selection:text-white">
 
-<body>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-text">&lt;Krishanu Das /&gt;</div>
+    </div>
 
-<!-- Navigation -->
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
 
-<nav>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <canvas id="particleCanvas" class="absolute inset-0 w-full h-full opacity-30"></canvas>
+    </div>
 
-<div class="profile_name">
-Krishanu Das
-</div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                   <span class="text-2xl font-bold font-mono text-white">&lt;<span class="text-indigo-400">KD</span>/&gt;</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="hover:text-indigo-400 transition-colors px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#experience" class="hover:text-indigo-400 transition-colors px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                        <a href="#projects" class="hover:text-indigo-400 transition-colors px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#achievements" class="hover:text-indigo-400 transition-colors px-3 py-2 rounded-md text-sm font-medium">Achievements</a>
+                        <a href="#skills" class="hover:text-indigo-400 transition-colors px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105">Contact Me</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden glass" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">About</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Experience</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Projects</a>
+                <a href="#achievements" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Achievements</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-indigo-400">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-<div>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left z-10">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-indigo-400 uppercase bg-indigo-900/30 rounded-full border border-indigo-500/30 animate-fade-in-up">
+                    Available for Opportunities
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    Hi, I'm <span class="text-gradient">Krishanu Das</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-gray-300 mb-8 font-mono h-10">
+                    I build <span id="typewriter" class="text-indigo-400"></span><span class="animate-pulse">|</span>
+                </h2>
+                <p class="text-gray-400 text-lg mb-10 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                   Software Engineering student at IEM Kolkata passionate about building scalable full-stack applications and financial analytics platforms. Developer of MachFinance — a market analytics and options research platform analyzing NIFTY 50 data.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#projects" class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full font-bold text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-1">
+                        View Projects
+                    </a>
+                    <a hrefhttps://github.com/Krishanu2006" target="_blank" class="px-8 py-4 glass rounded-full font-bold text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
 
-<a class="topmenu" href="#about">About</a>
-<a class="topmenu" href="#skills">Skills</a>
-<a class="topmenu" href="#projects">Projects</a>
-<a class="topmenu" href="#recommendations">Recommendations</a>
-<a class="topmenu" href="http://3.107.198.42:3000/" target="_blank">MachFinance Demo</a>
+                <!-- Social Links -->
+                <div class="mt-12 flex gap-6 justify-center md:justify-start text-gray-400">
+                    <a href="https://www.linkedin.com/in/krishanu-das-3a2a34329/" target="_blank" class="hover:text-white transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Krishanu2006" target="_blank" class="hover:text-white transition-colors text-2xl"><i class="fab fa-github"></i></a>
+                    <a href="https://leetcode.com/u/krishanudas06/" target="_blank" class="hover:text-white transition-colors text-2xl"><i class="fas fa-code"></i></a>
+                    <a href="mailto:dkrishanu94@gmail.com" class="hover:text-white transition-colors text-2xl"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
 
-</div>
+            <!-- Hero Visual -->
+            <div class="md:w-1/2 mt-12 md:mt-0 relative flex justify-center">
+                <div class="relative w-80 h-80 md:w-96 md:h-96">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-pink-500 rounded-full blur-2xl opacity-30 animate-pulse"></div>
+                    <div class="relative w-full h-full glass rounded-2xl overflow-hidden border border-white/10 shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 group">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-darker via-transparent to-transparent"></div>
+                        <div class="absolute bottom-6 left-6">
+                            <div class="text-xs text-indigo-300 font-mono mb-1">CURRENT_STATUS</div>
+                            <div class="text-white font-bold text-xl">AI Intern @ C2IoT Lab</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</nav>
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-gray-500 hover:text-white transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
 
-<!-- About -->
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="gsap-fade-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6"><span class="text-indigo-500">01.</span> About Me</h2>
+                    <div class="space-y-4 text-gray-300 text-lg leading-relaxed">
+                        <p>
+                            Hello! I'm Krishanu, a Computer Science student from Kolkata currently pursuing my 
+                            <span class="text-indigo-400 font-semibold">B.Tech in CSE at the Institute of Engineering & Management</span> 
+                            with a CGPA of <span class="text-indigo-400 font-semibold">9.67</span>.
+                        </p>
 
-<section id="about" class="hero">
+                        <p>
+                          I enjoy building scalable full-stack applications and financial analytics tools. 
+                          My primary stack includes <span class="text-indigo-400">ReactJS, FastAPI, Python, and SQL</span>.
+                        </p>
 
-<img src="developer (1).png" class="profile_image">
+                        <p>
+                          Recently I built <span class="text-indigo-400 font-semibold">MachFinance</span>, 
+                          a market analytics platform that processes minute- and second-level NIFTY 50 data 
+                          and applies indicators like SMA, EMA, RSI, MACD, and Bollinger Bands to support 
+                          quantitative market research.
+                        </p>
+                    </div>
 
-<div>
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="glass p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-white mb-1">9.67</div>
+                            <div class="text-sm text-gray-400">Current CGPA</div>
+                        </div>
+                        <div class="glass p-4 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-white mb-1">200+</div>
+                            <div class="text-sm text-gray-400">LeetCode Problems</div>
+                        </div>
+                    </div>
+                </div>
 
-<h1>Hi, I'm Krishanu Das 👋</h1>
+                <div class="relative gsap-fade-left">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-xl opacity-30 blur-lg"></div>
+                    <div class="relative glass p-8 rounded-xl border border-white/10">
+                        <h3 class="text-xl font-bold mb-6 text-white border-b border-white/10 pb-2">Education & Certs</h3>
 
-<p>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-900/50 flex items-center justify-center text-indigo-400">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">B.TB.Tech in Computer Science & Engineering</h4>
+                                    <p class="text-sm text-gray-400">Institute of Engineering and Management, Kolkata</p>
+                                    <p class="text-xs text-indigo-400 mt-1">2024 - 2028 • CGPA: 9.67/10</p>
+                                </div>
+                            </div>
 
-I am a B.Tech Computer Science student at the <b>Institute of Engineering & Management, Kolkata</b> with a CGPA of <b>9.67</b>.  
+                            <div class="border-t border-white/10 pt-6">
+                                <h4 class="font-bold text-white mb-3">Certifications</h4>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400 text-xs"></i> Fundamentals of AI Agents Using RAG (IBM)</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400 text-xs"></i> Programming with Generative AI (NPTEL)</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400 text-xs"></i> Generative AI for Everyone (DeepLearning.AI)</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400 text-xs"></i> Cyber Security Fundamentals (University of London)</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400 text-xs"></i> Soft Skill Development (NPTEL)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-I am passionate about building scalable software systems and full-stack web applications. My primary development stack includes <b>ReactJS</b> for frontend and <b>FastAPI with Python</b> for backend development.
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 bg-darker/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center"><span class="text-indigo-500">02.</span> Experience</h2>
 
-I enjoy developing data-driven applications, financial analytics platforms, and cloud-based systems. I am particularly interested in fintech, backend architecture, and building products that solve real-world problems.
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-indigo-500 to-purple-500"></div>
+                  <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+                    MachFinance – Market Analytics & Options Research Platform
+                  </h3>
 
-</p>
+                  <p class="text-gray-400 text-sm mb-4">
+                      Built a full-stack financial analytics platform for analyzing NIFTY 50 market data at 
+                      minute- and second-level granularity. Developed interactive dashboards using ReactJS 
+                      and a high-performance FastAPI backend to process time-series market data. Implemented 
+                      technical indicators such as SMA, EMA, RSI, MACD, and Bollinger Bands, and applied 
+                      the Black-Scholes model for options pricing analysis. The platform is deployed on AWS 
+                      to support scalable financial data analysis and research.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2">
+                    
+                      <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">ReactJS</span>
+                      
+                      <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">FastAPI</span>
+                      
+                      <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Python</span>
+                      
+                      <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Financial Analytics</span>
+                      
+                      <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Options Pricing</span>
+                      
+                      <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">AWS</span>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<br>
+    <!-- Projects Section -->
+    <section id="projects" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold"><span class="text-indigo-500">03.</span> Featured Projects</h2>
+                <a href="https://github.com/AnikChiney" target="_blank" class="hidden md:block text-indigo-400 hover:text-white transition-colors font-mono text-sm">View Github <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
 
-<div class="links">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-<a href="https://github.com/Krishanu2006" target="_blank">GitHub</a>
+                <!-- Project 1: Speech Emotion Recognition -->
+                <div class="project-card group relative rounded-xl overflow-hidden cursor-pointer" onclick="window.open('https://github.com/AnikChiney', '_blank')">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-darker z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Speech Emotion Recognition" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">Speech Emotion Recognition</h3>
+                            <div class="flex gap-3">
+                                <i class="fab fa-github text-gray-400 hover:text-white"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Deep learning system using LSTM and Bidirectional LSTM with MFCC features. Trained on RAVDESS and Hindi IESC datasets with wav2vec2 embeddings for multilingual emotion recognition.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Python</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">LSTM</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Deep Learning</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">wav2vec2</span>
+                        </div>
+                    </div>
+                </div>
 
-<a href="https://www.linkedin.com/in/krishanu-das-3a2a34329/" target="_blank">LinkedIn</a>
+                <!-- Project 2: CarbonLens AI -->
+                <div class="project-card group relative rounded-xl overflow-hidden cursor-pointer" onclick="window.open('https://github.com/AnikChiney/CarbonLensAI-newPersonal', '_blank')">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-darker z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CarbonLens AI" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">CarbonLens AI</h3>
+                            <div class="flex gap-3">
+                                <i class="fab fa-github text-gray-400 hover:text-white"></i>
+                                <i class="fas fa-external-link-alt text-gray-400 hover:text-white"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Intelligent carbon emission forecasting system using Python, Flask, and Chart.js. Features Facebook Prophet time-series forecasting, carbon pricing analysis, and personalized sustainability recommendations.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Python</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Flask</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Chart.js</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Prophet</span>
+                        </div>
+                    </div>
+                </div>
 
-</div>
+                <!-- Project 3: MindHeaven -->
+                <div class="project-card group relative rounded-xl overflow-hidden cursor-pointer" onclick="window.open('https://github.com/AnikChiney/MindHeaven', '_blank')">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-darker z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="MindHeaven" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">MindHeaven</h3>
+                            <div class="flex gap-3">
+                                <i class="fab fa-github text-gray-400 hover:text-white"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">AI Mental Health Platform built with MERN stack. Features AI chatbot using OpenRouter APIs, JWT-based authentication, and secure RESTful APIs with scalable backend services.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">MERN</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">OpenRouter API</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">JWT Auth</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">REST API</span>
+                        </div>
+                    </div>
+                </div>
 
-</div>
+                <!-- Project 4: WonderLust -->
+                <div class="project-card group relative rounded-xl overflow-hidden cursor-pointer" onclick="window.open('https://github.com/AnikChiney/Anikwonderlust', '_blank')">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-darker z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="WonderLust" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">WonderLust</h3>
+                            <div class="flex gap-3">
+                                <i class="fab fa-github text-gray-400 hover:text-white"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Full Stack Property Rental Platform with booking management, authentication, CRUD operations, and optimized MongoDB queries for efficient data retrieval.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">MERN</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">Bootstrap</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">MongoDB</span>
+                            <span class="px-2 py-1 text-xs rounded bg-white/10 text-indigo-300">REST API</span>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-24 bg-darker/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+            <span class="text-indigo-500">04.</span> Hackathons
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+            <!-- MumbaiHacks -->
+            <div class="achievement-card glass-card p-6 rounded-xl">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 flex-shrink-0">
+                        <i class="fas fa-trophy text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Finalist</h3>
+                        <p class="text-gray-400 text-sm">
+                            MumbaiHacks Hackathon – Selected as a Finalist among participating teams
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diversion -->
+            <div class="achievement-card glass-card p-6 rounded-xl">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center text-blue-400 flex-shrink-0">
+                        <i class="fas fa-code text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Hackathon Participant</h3>
+                        <p class="text-gray-400 text-sm">
+                            Diversion 2k26 – Major League Hacking (MLH) Hackathon
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center"><span class="text-indigo-500">05.</span> Technical Arsenal</h2>
 
-<!-- Skills -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Languages -->
+                <div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 text-blue-400">
+                        <i class="fas fa-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Python</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Java</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">C</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">JavaScript</span>
+                    </div>
+                </div>
 
-<section id="skills">
+                <!-- Frontend -->
+                <div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+                        <i class="fas fa-laptop-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Frontend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">React.js</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">HTML5</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">CSS3</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Bootstrap</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Material UI</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Chart.js</span>
+                    </div>
+                </div>
 
-<h2>Skills</h2>
+                <!-- Backend -->
+                <div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4 text-green-400">
+                        <i class="fas fa-server text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Backend</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">FastAPI</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Node.js</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Express.js</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">REST API</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Authentication (JWT)</span>
+                    </div>
+                </div>
 
-<div class="skills-grid">
+                <!-- Databases -->
+                <div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4 text-yellow-400">
+                        <i class="fas fa-database text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Databases</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">MongoDB</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">MySQL</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">SQL</span>
+                    </div>
+                </div>
 
-<div class="skill-card">
-<h4>Python</h4>
-<p>Backend Development</p>
-</div>
+                <!-- Data & Analytics -->
+                <div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4 text-pink-400">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Data & Analytics</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Financial Data Analysis</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Time Series Analysis</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Technical Indicators</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Black-Scholes Model</span>
+                    </div>
+                </div>
 
-<div class="skill-card">
-<h4>React JS</h4>
-<p>Frontend Development</p>
-</div>
+                <!-- Tools & Core CS -->
+                <div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors">
+                    <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4 text-orange-400">
+                        <i class="fas fa-tools text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-3">Tools & Core CS</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Git</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">GitHub</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Postman</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">AWS Deployment</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Data Structures</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">Algorithms</span>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-sm text-gray-300">OOP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="skill-card">
-<h4>FastAPI</h4>
-<p>API Development</p>
-</div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass p-8 md:p-12 rounded-2xl border border-white/10 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Work Together</h2>
+                    <p class="text-gray-400">Have a project in mind? I'm currently open to new opportunities.</p>
+                </div>
 
-<div class="skill-card">
-<h4>JavaScript</h4>
-<p>Web Development</p>
-</div>
+                <form id="contactForm" class="space-y-6" onsubmit="handleSubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                            <input type="text" required class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                            <input type="email" required class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                        <textarea rows="4" required class="w-full bg-dark/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-lg hover:shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
 
-<div class="skill-card">
-<h4>SQL</h4>
-<p>Database</p>
-</div>
+                <div id="successMessage" class="hidden mt-4 p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center">
+                    <i class="fas fa-check-circle mr-2"></i> Message sent successfully! I'll get back to you soon.
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="skill-card">
-<h4>AWS</h4>
-<p>Cloud Deployment</p>
-</div>
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/5 bg-darker">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+            <span class="text-xl font-bold font-mono text-white">&lt;<span class="text-indigo-400">KD</span>/&gt;</span>
+            <span class="text-gray-500 text-sm ml-2">© 2026 Krishanu Das. All rights reserved.</span>
+        </div>
+        <div class="flex gap-6">
+            <a href="https://www.linkedin.com/in/krishanu-das-3a2a34329/" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+            <a href="https://github.com/Krishanu2006" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github text-xl"></i></a>
+            <a href="mailto:dkrishanu94@gmail.com" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-envelope text-xl"></i></a>
+        </div>
+    </div>
+</footer>
 
-<div class="skill-card">
-<h4>Java</h4>
-<p>Programming</p>
-</div>
+    <script>
+        // Remove Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
 
-<div class="skill-card">
-<h4>C</h4>
-<p>Programming</p>
-</div>
+        // Typewriter Effect
+        const words = ["AI Applications.", "Scalable Web Apps.", "MERN Stack Solutions.", "LLM Integrations."];
+        let i = 0;
+        let timer;
 
-</div>
+        function typeWriter() {
+            const element = document.getElementById('typewriter');
+            const word = words[i];
+            let currentText = element.innerText;
 
-</section>
+            if (!this.isDeleting && currentText !== word) {
+                element.innerText = word.substring(0, currentText.length + 1);
+                timer = setTimeout(typeWriter, 100);
+            } else if (!this.isDeleting && currentText === word) {
+                this.isDeleting = true;
+                timer = setTimeout(typeWriter, 2000);
+            } else if (this.isDeleting && currentText !== "") {
+                element.innerText = word.substring(0, currentText.length - 1);
+                timer = setTimeout(typeWriter, 50);
+            } else {
+                this.isDeleting = false;
+                i = (i + 1) % words.length;
+                timer = setTimeout(typeWriter, 500);
+            }
+        }
 
-<!-- Projects -->
+        // Start Typewriter
+        setTimeout(typeWriter, 1000);
 
-<section id="projects">
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
 
-<h2>Projects</h2>
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
 
-<div class="projects-container">
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
 
-<div class="project-card">
+            // Add a little delay to the outline for a fluid feel
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
 
-<h3>MachFinance – Market Analytics & Options Research Platform</h3>
+        // Hover effect for cursor
+        document.querySelectorAll('a, button, .project-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.width = '60px';
+                cursorOutline.style.height = '60px';
+                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
 
-<ul>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('glass', 'shadow-lg');
+            } else {
+                nav.classList.remove('glass', 'shadow-lg');
+            }
+        });
 
-<li>Developed a full-stack financial analytics platform for analyzing NIFTY 50 market data.</li>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
 
-<li>Built interactive dashboards using <b>ReactJS</b> to visualize financial trends and indicators.</li>
+        // Fade Up Elements
+        gsap.utils.toArray('.gsap-fade-right').forEach(element => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                x: -50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
 
-<li>Implemented backend services using <b>FastAPI</b> to process minute- and second-level time-series market data.</li>
+        gsap.utils.toArray('.gsap-fade-left').forEach(element => {
+            gsap.from(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                x: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
 
-<li>Integrated technical indicators including <b>SMA, EMA, Bollinger Bands, MACD, and RSI</b>.</li>
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power3.out"
+            });
+        });
 
-<li>Applied the <b>Black-Scholes model</b> to analyze options pricing and payoff structures.</li>
+        // Achievement cards animation
+        gsap.utils.toArray('.achievement-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                },
+                x: i % 2 === 0 ? -50 : 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power3.out"
+            });
+        });
 
-<li>Designed REST APIs and optimized database queries for financial datasets.</li>
+        // Contact Form Handling
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
 
-<li>Deployed the platform on <b>AWS</b> for scalable public access.</li>
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
 
-</ul>
+            setTimeout(() => {
+                document.getElementById('contactForm').reset();
+                document.getElementById('successMessage').classList.remove('hidden');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
 
-<a href="http://3.107.198.42:3000/" target="_blank">
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        }
 
-<button>View Live Demo</button>
+        // Particle Background Logic
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-</a>
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-</div>
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-</div>
+        function initParticles() {
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
 
-</section>
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
 
-<!-- Recommendations -->
+        initParticles();
+        animateParticles();
 
-<section id="recommendations">
-
-<h2>Recommendations</h2>
-
-<div class="recommendation">
-
-Krishanu is a quick learner who understands complex technical concepts rapidly.  
-He demonstrates strong initiative and consistently contributes valuable ideas to projects.
-
-</div>
-
-<div class="recommendation">
-
-Working with Krishanu has been a great experience.  
-He is highly knowledgeable, detail-oriented, and committed to delivering quality work.
-
-</div>
-
-</section>
-
-<!-- Contact -->
-
-<div class="contact">
-
-<h2>Contact</h2>
-
-<p>Email: dkrishanu94@gmail.com</p>
-<p>Phone: +91-9002752448</p>
-
-<p>
-
-GitHub:  
-<a href="https://github.com/Krishanu2006" target="_blank">github.com/Krishanu2006</a>
-
-</p>
-
-<p>
-
-LinkedIn:  
-<a href="https://www.linkedin.com/in/krishanu-das-3a2a34329/" target="_blank">View Profile</a>
-
-</p>
-
-</div>
-
-<div class="footer">
-
-© 2026 Krishanu Das
-
-</div>
-
+    </script>
 </body>
-
 </html>
