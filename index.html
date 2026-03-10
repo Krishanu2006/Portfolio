@@ -1,168 +1,336 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Krishanu Das - Portfolio</title>
-    <link rel="stylesheet" href="style.css"/>
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <!-- Navigation Bar -->
-    <nav>
-      <div id="home">
-        <div class="profile_name">
-          Krishanu Das
-          <div class="contact_info">
-            <img src="email.png" alt=""/>
-          dkrishanu94@gmail.com
-        </div>
-        <div style="clear:both;"></div>
-        <div class="contact_info">
-          <img src="telephone.png" alt=""/>
-          +919002752448
+<html lang="en">
 
-        </div>
-        </div>
-        <div class="topdiv">
-          <a class="topmenu" href="#about-me">About Me</a>
-          <a class="topmenu" href="skills">Skills</a>
-          <a class="topmenu" href="projects">Projects</a>
-          <a class="topmenu" href="recommendations">Recommendations</a>
-          <!-- Add the links for Skills, Projects and Recommendation here -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        </div>
-      </div>    
-    </nav>
+<title>Krishanu Das | Portfolio</title>
 
-    <!-- About Me -->
-    <section id="about-me" class="container">
-      <div>
-        <img src="developer (1).png" class="profile_image"/>
-      </div>
+<style>
 
-      <div>
-          <h1>
-            Hi, I'm Krishanu Das!
-          </h1>
-          <p>
-            I am a passionate and driven B.Tech student entering my second year, with a strong foundation in full-stack web development and programming. I have hands-on experience in building responsive and dynamic web applications using HTML, CSS, JavaScript, and React JS on the frontend, along with FastAPI and Python for backend development. Additionally, I am proficient in Java and C, which has strengthened my problem-solving skills and understanding of core programming concepts.
-            I enjoy exploring real-world applications of technology, collaborating on innovative projects, and continuously upgrading my skills. I am currently looking for opportunities to apply my knowledge in practical settings and contribute meaningfully to team-based environments.
-          </p>
-      </div>
-    </section>
-              
-    <!-- Skills -->
-    <section id="skills">
-      <h2>Skills</h2>
-      <div style="clear:both;"></div>
+html{
+scroll-behavior:smooth;
+font-family:Arial, Helvetica, sans-serif;
+}
 
-      <div class="all_skills">
-        <div class="skill">
-          <img src="html.png"/>
-          <h6>HTML</h6>
-          <p>2 years experience</p>
-        </div>  
+body{
+margin:0;
+background:#f6f8fb;
+}
 
-        <div class="skill">
-          <img src="js.png"/>
-          <h6>JavaScript</h6>
-          <p>3 month experience</p>
-        </div>  
+nav{
+background:#111827;
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+}
 
-        <!-- Add more skills here -->
-        <div class="skill">
-          <img src="css-3.png">
-          <h6>CSS</h6>
-          <p>1 year experience</p>
-        </div>
-        <div class="skill">
-          <img src="react.png" alt="">
-          <h6>React JS</h6>
-          <p>6 month experience</p>
-        </div>
+.profile_name{
+font-size:22px;
+font-weight:bold;
+}
 
-      </div>
-    </section>
-          
-    <!-- Projects -->
-    <section class="projects" id="projects">
-      <h2>
-        Projects
-      </h2>
-      <div style="clear:both;"></div>
+.topmenu{
+margin-left:20px;
+text-decoration:none;
+color:white;
+font-size:16px;
+}
 
-        <div id="projects-container" class="projects-container">
-          <div class="project-card">
-  <h3>MachFinance – Market Analytics & Options Research Platform</h3>
-  <ul>
-    <li>Developed MachFinance, a full-stack web-based market analytics platform designed for analyzing NIFTY 50 market data and supporting options research.</li>
-    <li>Built the frontend using <b>ReactJS</b> to create interactive dashboards for visualizing real-time and historical market trends.</li>
-    <li>Implemented a <b>FastAPI backend</b> to process large volumes of minute- and second-level market data efficiently.</li>
-    <li>Integrated technical indicators including <b>SMA, EMA, Bollinger Bands, MACD, and RSI</b> to support quantitative market analysis.</li>
-    <li>Applied the <b>Black–Scholes model</b> to evaluate option pricing and payoff structures for different trading strategies.</li>
-    <li>Designed RESTful APIs and database queries to retrieve and process time-series financial data.</li>
-    <li>Built interactive visualizations to help users analyze volatility, trend patterns, and risk–reward profiles for data-driven decision making.</li>
-    <li>Deployed the application on <b>AWS</b> to enable public access and scalable cloud hosting.</li>
-  </ul>
+.topmenu:hover{
+color:#60a5fa;
+}
+
+.container{
+display:flex;
+align-items:center;
+padding:60px;
+gap:40px;
+}
+
+.profile_image{
+width:250px;
+}
+
+h1{
+font-size:36px;
+}
+
+section{
+padding:60px;
+}
+
+.all_skills{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.skill{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+text-align:center;
+width:150px;
+}
+
+.projects-container{
+max-width:900px;
+}
+
+.project-card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+button{
+background:#2563eb;
+border:none;
+color:white;
+padding:10px 20px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.footer{
+text-align:center;
+padding:30px;
+background:#111827;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+<div class="profile_name">
+Krishanu Das
 </div>
-  
-    </div>
-    </section>
-    <div style="clear:both;"></div>
 
-    <!-- Recommendations -->
-    <section id="recommendations">
-      <h2>Recommendations</h2>
-      <div style="clear:both;"></div>
-      <div class="all_recommendations" id="all_recommendations">
-        <div class="recommendation">
-          <span>&#8220;</span>
-          Krishanu is a very quick learner and quickly grasps key concepts of Web development. 
-          He got a great attitude & he is an excellent team player. 
-          He has a curious mind and asks the right question. 
-          He takes initiative within a team and has potentials to lead the team.
-          <span>&#8221;</span>
-        </div>
-        <div class="recommendation">
-          <span>&#8220;</span>
-          Working with Krishanu has been an awesome experience. 
-          He is highly knowledgable and always goes the extra step to make sure everything is right. 
-          For any future projects that need his expertise I would definitely want to work with him again.
-          <span>&#8221;</span>
-        </div>
-        <div class="recommendation">
-          <span>&#8220;</span>
-          I had worked along with Krishanu during the initial phase of our venture which needed Web development. 
-          He is a committed resource who has in depth knowledge about the domain. 
-          He will be an asset for any organisation! 
-          <span>&#8221;</span>
-        </div>
-      </div>
-    </section>
+<div>
 
-    <!-- Recommendation Form -->
-    <section id="contact">
-      <div class="flex_center">
-        <fieldset>
-          <legend class="introduction">Leave a Recommendation</legend>          
-          <input type="text" placeholder="Name (Optional)"> <br/>
-          <textarea id="new_recommendation" cols="500" rows="10" placeholder="Message"></textarea>
-          <div class="flex_center">
-            <button id="recommend_btn" onclick="addRecommendation()">Submit</button>
-          </div>
-        </fieldset>
-      </div>
-    </section>
+<a class="topmenu" href="#about">About</a>
+<a class="topmenu" href="#skills">Skills</a>
+<a class="topmenu" href="#projects">Projects</a>
+<a class="topmenu" href="http://3.107.198.42:3000/" target="_blank">MachFinance Demo</a>
 
-    <div class="iconbutton">
-      <a href="#home">
-        <!--Add the code here for the logo to appear and the icon to be actionable-->
-      </a>
-    </div>
+</div>
 
-    <div class="popup" id="popup" class="flex_center">
-      <img src="html_finalprojimages/checkmark--outline.svg"/>
-      <h3><!-- Add appropriate text here--></h3>
-      <button onclick="showPopup(false)">Ok</button>
-    </div>
-  </body>
+</nav>
+
+<!-- About -->
+
+<section id="about" class="container">
+
+<img src="developer (1).png" class="profile_image">
+
+<div>
+
+<h1>Hi, I'm Krishanu Das</h1>
+
+<p>
+
+I am a B.Tech Computer Science student at the Institute of Engineering & Management (IEM), Kolkata with a CGPA of <b>9.67</b>.  
+
+I am passionate about building scalable software systems and full-stack applications. My primary development stack includes <b>ReactJS</b> for frontend development and <b>FastAPI with Python</b> for backend services.  
+
+I enjoy working with data-driven applications, APIs, and cloud deployments. My interests include financial technology, market analytics, backend system design, and building products that solve real-world problems.
+
+</p>
+
+<p>
+
+📧 dkrishanu94@gmail.com  
+📱 +91-9002752448
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Skills -->
+
+<section id="skills">
+
+<h2>Skills</h2>
+
+<div class="all_skills">
+
+<div class="skill">
+<h4>Python</h4>
+<p>Backend Development</p>
+</div>
+
+<div class="skill">
+<h4>React JS</h4>
+<p>Frontend Development</p>
+</div>
+
+<div class="skill">
+<h4>FastAPI</h4>
+<p>API Development</p>
+</div>
+
+<div class="skill">
+<h4>JavaScript</h4>
+<p>Web Development</p>
+</div>
+
+<div class="skill">
+<h4>SQL</h4>
+<p>Database Management</p>
+</div>
+
+<div class="skill">
+<h4>AWS</h4>
+<p>Cloud Deployment</p>
+</div>
+
+<div class="skill">
+<h4>Java</h4>
+<p>Programming</p>
+</div>
+
+<div class="skill">
+<h4>C</h4>
+<p>Programming</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- Projects -->
+
+<section id="projects">
+
+<h2>Projects</h2>
+
+<div class="projects-container">
+
+<div class="project-card">
+
+<h3>MachFinance – Market Analytics & Options Research Platform</h3>
+
+<ul>
+
+<li>
+Developed a full-stack web platform for analyzing NIFTY 50 market data at minute- and second-level granularity.
+</li>
+
+<li>
+Built the frontend using <b>ReactJS</b> to create interactive dashboards for financial data visualization.
+</li>
+
+<li>
+Implemented a high-performance backend using <b>FastAPI</b> to process time-series market data efficiently.
+</li>
+
+<li>
+Integrated technical indicators including <b>SMA, EMA, Bollinger Bands, MACD, and RSI</b> for quantitative analysis.
+</li>
+
+<li>
+Applied the <b>Black-Scholes model</b> to evaluate options pricing and trading payoff structures.
+</li>
+
+<li>
+Designed RESTful APIs and optimized database queries for large financial datasets.
+</li>
+
+<li>
+Deployed the platform on <b>AWS</b> to provide scalable cloud hosting and public access.
+</li>
+
+</ul>
+
+<br>
+
+<a href="http://3.107.198.42:3000/" target="_blank">
+<button>View Live Demo</button>
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Recommendations -->
+
+<section id="recommendations">
+
+<h2>Recommendations</h2>
+
+<div class="project-card">
+
+<p>
+
+“Krishanu is a quick learner who understands complex technical concepts rapidly.  
+He demonstrates strong initiative and consistently contributes valuable ideas to projects.”
+
+</p>
+
+<p>
+
+“Working with Krishanu has been a great experience.  
+He is highly knowledgeable, detail-oriented, and committed to delivering quality work.”
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Contact -->
+
+<section id="contact">
+
+<h2>Contact</h2>
+
+<p>Email: dkrishanu94@gmail.com</p>
+<p>Phone: +91-9002752448</p>
+
+<p>
+
+LinkedIn:  
+<a href="https://linkedin.com" target="_blank">Profile</a>
+
+</p>
+
+<p>
+
+GitHub:  
+<a href="https://github.com" target="_blank">Repository</a>
+
+</p>
+
+</section>
+
+<div class="footer">
+
+© 2026 Krishanu Das
+
+</div>
+
+</body>
+
 </html>
